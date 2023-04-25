@@ -1,0 +1,35 @@
+﻿@page
+@model zad4.Pages.Basket.IndexModel
+@{
+}
+@using System.Text.Json;
+@using zad4.Models;
+<h1>KOSZYK</h1>
+
+@if(Model.koszyk != null)
+{
+    <ul>
+        @foreach(var product in Model.koszyk.Products)
+        {
+            @if(Model.productList.Any(p => (p.name == product.Key.name && p.price == product.Key.price)))
+            {
+                <li>@product.Key.name - @product.Key.price ilość sztuk w koszyku: @product.Value</li>
+            }
+            else
+            {
+                <li>@product.Key.name - @product.Key.price ilość sztuk w koszyku: @product.Value - niestety produkt już jest nieaktualny i nie ma takiego na liście produktów</li>
+            }
+        }
+    </ul>
+}
+else
+{
+    <span>Koszyk nie istnieje w ciasteczkach</span>
+}
+
+<form method="post">
+    <button type="submit" asp-page-handler="ClearBasket" class="btn btn-danger">Wyczyść koszyk</button>
+    <button type="submit" asp-page-handler="DeleteBasket" class="btn btn-danger">Usuń koszyk z ciasteczek</button>
+    <button type="submit" asp-page-handler="DeleteNotAvailableProducts" asp-route-productsJSON="@JsonSerializer.Serialize(Model.productList, ProductDictionaryKeyConverter.jsonSerializeConventorOptions)" asp-route-basketJSON="@JsonSerializer.Serialize(Model.koszyk, ProductDictionaryKeyConverter.jsonSerializeConventorOptions)" class="btn btn-primary">Usuń nieaktualne produkty z koszyka</button>
+</form>
+<a asp-page="./../Products/List">Wróć do listy produktów</a>

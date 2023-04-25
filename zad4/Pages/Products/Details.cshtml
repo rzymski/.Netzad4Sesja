@@ -1,0 +1,21 @@
+﻿@page
+@model zad4.Pages.Products.DetailsModel
+@{
+}
+<h2>Szczegóły</h2>
+<br /><br />
+<div class="container">
+    <div class="form-group">
+        <label asp-for="newProduct.id" class="control-label col-sm-2"></label> @Model.newProduct.id
+    </div>
+    <div class="form-group">
+        <label asp-for="newProduct.name" class="control-label col-sm-2"></label> @Model.newProduct.name
+    </div>
+    <div class="form-group">
+        <label asp-for="newProduct.price" class="control-label col-sm-2"></label> @Model.newProduct.price
+    </div>
+    <form class="form-horizontal" method="post">
+        <button class="btn btn-primary">Dodaj do koszyka</button>
+    </form>
+    <a asp-page="./List">Wróć do listy</a>
+</div>

@@ -1,0 +1,23 @@
+﻿@page
+@model zad4.Pages.Products.DeleteModel
+@{
+}
+<h2>Nowy produkt</h2>
+<br /><br />
+<div class="container">
+    <form class="form-horizontal" method="post">
+        <input type="hidden" asp-for="newProduct.id" />
+        <div class="form-group">
+            <label asp-for="newProduct.name" class="control-label col-sm-2"></label> @Model.newProduct.name
+        </div>
+        <div class="form-group">
+            <label asp-for="newProduct.price" class="control-label col-sm-2"></label> @Model.newProduct.price
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-danger">Usun produkt</button>
+                <a asp-page="./List" class="btn btn-primary">Wróć do listy</a>
+            </div>
+        </div>
+    </form>
+</div>
