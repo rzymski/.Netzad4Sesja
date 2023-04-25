@@ -31,7 +31,7 @@
                     <a asp-page="Details" asp-route-id=@p.id>Szczegóły</a> |
                     <a asp-page="Edit" asp-route-id=@p.id>Edytuj</a> |
                     <a asp-page="Delete" asp-route-id=@p.id>Kasuj</a> |
-                    <a asp-page="./../Basket/Index" asp-page-handler="AddToBasket" asp-route-id="@p.id">Dodaj do koszyka</a>
+                    <a asp-page="./../Basket/Index" asp-page-handler="AddToBasketReturnToPreviousPage" asp-route-id="@p.id">Dodaj do koszyka</a>
                 </td>
             </tr>
         }

@@ -46,6 +46,31 @@ namespace zad4.Pages.Basket
             return RedirectToPage();
         }
 
+        public IActionResult OnGetAddToBasketReturnToPreviousPage(int id)
+        {
+            LoadDB();
+            Product product = productDB.getProduct(id);
+            koszyk = new BasketModel();
+            var koszykJson = Request.Cookies["Koszyk"];
+            if (!string.IsNullOrEmpty(koszykJson))
+                koszyk = JsonSerializer.Deserialize<BasketModel>(koszykJson, ProductDictionaryKeyConverter.jsonSerializeConventorOptions);
+            Product existedProduct = null;
+            foreach (var item in koszyk.Products)
+                if (item.Key.name == product.name && item.Key.price == product.price && item.Key.id == product.id)
+                    existedProduct = item.Key;
+            if (existedProduct != null)
+                koszyk.Products[existedProduct] = koszyk.Products[existedProduct] + 1;
+            else
+                koszyk.Products.Add(product, 1);
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.Now.AddMinutes(1)
+            };
+            Response.Cookies.Append("Koszyk", JsonSerializer.Serialize(koszyk, ProductDictionaryKeyConverter.jsonSerializeConventorOptions), cookieOptions);
+            string url = Request.Headers["Referer"].ToString();
+            return Redirect(url);
+        }
+
         public IActionResult OnPostClearBasket()
         {
             var koszyk = new BasketModel();
