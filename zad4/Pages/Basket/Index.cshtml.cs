@@ -97,10 +97,11 @@ namespace zad4.Pages.Basket
         {
             productList = JsonSerializer.Deserialize<List<Product>>(productsJSON, ProductDictionaryKeyConverter.jsonSerializeConventorOptions);
             koszyk = JsonSerializer.Deserialize<BasketModel>(basketJSON, ProductDictionaryKeyConverter.jsonSerializeConventorOptions);
+            if (koszyk is null) return RedirectToPage();
 
             foreach (var item in koszyk.Products)
             {
-                if (!productList.Any(p => p.name == item.Key.name))
+                if (!productList.Any(p => (p.name == item.Key.name && p.price == item.Key.price)))
                 {
                     Console.WriteLine("POWINNO USUNAC: "+item.Key);
                     koszyk.Products.Remove(item.Key);

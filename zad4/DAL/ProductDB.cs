@@ -31,6 +31,7 @@ namespace zad4.DAL
         //    int newID = lastID+1;
         //    return newID;
         //}
+
         public void Create(Product p)
         {
             //p.id = GetNextId();
@@ -48,7 +49,6 @@ namespace zad4.DAL
 
         public void Edit(Product p)
         {
-            //products[p.id-1] = p;
             int indx = products.IndexOf(getProduct(p.id));
             Console.WriteLine(indx);
             products[indx] = p;
